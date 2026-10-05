@@ -28,12 +28,12 @@ def awsLogin(){
 }
 
 def makeBuild(String imageName){
-    sh 'docker build -t ${imageName} .'
+    sh "docker build -t ${imageName} ."
 
     withCredentials([
         string(credentialsId: 'ECR-ENDPOINT', variable: 'ecrEndpoint')
     ]){ 
-        sh 'docker image tag ${imageName} ${ecrEndpoint}:${env.BUILD_ID}'
-        sh 'docker push ${ecrEndpoint}:${env.BUILD_ID}'
+        sh "docker image tag ${imageName} ${ecrEndpoint}:${env.BUILD_ID}"
+        sh "docker push ${ecrEndpoint}:${env.BUILD_ID}"
      } 
 }
