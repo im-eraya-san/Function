@@ -5,9 +5,7 @@ def infraRegion(){
    
     withCredentials([
         string(credentialsId: 'REGION', variable: 'Region')
-    ])
-
-    return Region
+    ]){ return Region } 
 }
 
 def awsLogin(){
