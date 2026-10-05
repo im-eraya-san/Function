@@ -1,4 +1,4 @@
-@Library('ECR') _
+@Library('lambda') _
 
 pipeline{
     agent any
