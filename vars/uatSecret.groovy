@@ -24,7 +24,7 @@ def awsLogin(){
                 )
             ]){
                 // Login to ECR
-                sh 'aws ecr get-login-password --region "$REGION"| docker login --username "$uname" --password-stdin "$passwd"'
+                sh 'aws ecr get-login-password --region "$AWS_REGION"| docker login --username "$uname" --password-stdin "$passwd"'
             }
     }
 }
