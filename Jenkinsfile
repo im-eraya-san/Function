@@ -6,7 +6,7 @@ pipeline{
         stage("Login to aws"){
             steps{
                 script{
-                    handler.awsLogin()
+                    uatSecret.awsLogin()
                 }
             }
         }
