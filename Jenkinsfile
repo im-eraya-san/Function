@@ -16,6 +16,7 @@ pipeline{
         stage("Creating build"){
             steps {
                 script{
+		    sh "echo '$imageName'"
                     uatSecret.makeBuild(imageName)
                 }
             }
