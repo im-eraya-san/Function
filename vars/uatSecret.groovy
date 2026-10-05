@@ -28,7 +28,7 @@ def awsLogin(){
 }
 
 def makeBuild(String imageName){
-    sh "docker build -t ${imageName} ."
+    sh "docker build --provenance=false --sbom=false -t ${imageName} ."
 
     withCredentials([
         string(credentialsId: 'ECR-ENDPOINT', variable: 'ecrEndpoint')
