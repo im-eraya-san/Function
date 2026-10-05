@@ -1,4 +1,4 @@
-def infraRegion(){
+def getRegion(){
    
 //    This function takes aws region from Jenkins cred store
 //    it is for security purpose.
@@ -9,9 +9,7 @@ def infraRegion(){
 }
 
 def awsLogin(){
-
-//  Take region from infraRegion file
-    def REGION = infraRegion()
+    def REGION = getRegion()
 
 // Apply aws cred according to region
     withAWS(credentials: 'AWS', region: REGION){
@@ -27,4 +25,15 @@ def awsLogin(){
                 sh 'aws ecr get-login-password --region "$AWS_REGION"| docker login --username "$uname" --password-stdin "$passwd"'
             }
     }
+}
+
+def makeBuild(String imageName){
+    sh 'docker build -t ${imageName} .'
+
+    withCredentials([
+        string(credentialsId: 'ECR-ENDPOINT', variable: 'ecrEndpoint')
+    ]){ 
+        sh 'docker image tag ${imageName} ${ecrEndpoint}:${env.BUILD_ID}'
+        sh 'docker push ${ecrEndpoint}:${env.BUILD_ID}'
+     } 
 }
